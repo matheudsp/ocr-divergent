@@ -1,0 +1,38 @@
+node_modules/
+package-lock.json 
+yarn.lock
+pnpm-lock.yaml
+
+dist/
+build/
+*.tsbuildinfo
+
+.env
+.env.*
+!.env.example 
+
+# --- Logs ---
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Editor e IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Sistema Operacional ---
+.DS_Store
+Thumbs.db
+
+# --- Testes e Cobertura ---
+coverage/
+__snapshots__/
+
+# Arquivos Temporários do Tesseract
+*.traineddata
+
