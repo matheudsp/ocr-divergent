@@ -4,7 +4,7 @@ import {
   VerificationJobData,
 } from "@core/ports/IQueueProvider";
 import { logger } from "@infra/logger";
-import { env } from "../../config/env";
+import { env } from "../config/env";
 export class BullMqProvider implements IQueueProvider {
   private queue: Queue;
   private readonly serviceName: string = "BullQueue";

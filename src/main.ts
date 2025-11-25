@@ -1,11 +1,12 @@
-import { env } from "./config/env";
+import { env } from "./infra/config/env";
 
-import { loggerOptions } from "config/logger";
+import { loggerOptions } from "@infra/config/logger";
 import Fastify from "fastify";
 import multipart from "@fastify/multipart";
 
 import { MinioStorageProvider } from "@infra/storage/MinioStorageProvider";
-import { InMemoryVerificationRepo } from "@infra/database/InMemoryVerificationRepo";
+// import { InMemoryVerificationRepo } from "@infra/database/InMemoryVerificationRepo";
+import { PrismaVerificationRepo } from "@infra/database/PrismaVerificationRepo";
 import { BullMqProvider } from "@infra/queue/BullMqProvider";
 import { RequestVerification } from "@core/usecases/RequestVerification";
 import { UploadController } from "@infra/http/controllers/UploadController";
@@ -19,7 +20,8 @@ server.register(multipart, {
 });
 
 const storageProvider = new MinioStorageProvider();
-const repository = new InMemoryVerificationRepo();
+// const repository = new InMemoryVerificationRepo();
+const repository = new PrismaVerificationRepo();
 const queueProvider = new BullMqProvider("ocr-processing-queue");
 
 const requestVerificationUseCase = new RequestVerification(

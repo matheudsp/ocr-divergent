@@ -47,7 +47,7 @@ export class ProcessVerification {
       );
 
       request.complete(result);
-      await this.verificationRepo.save(request);
+      await this.verificationRepo.update(request);
 
       logger.info(
         `Verificacao ${verificationId} concluida. Score: ${result.confidenceScore}`

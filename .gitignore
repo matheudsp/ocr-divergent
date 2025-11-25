@@ -38,3 +38,4 @@ __snapshots__/
 
 
 gcp-keys.json
+/src/generated/prisma

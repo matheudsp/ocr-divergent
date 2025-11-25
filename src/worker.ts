@@ -2,12 +2,13 @@ import { Worker } from "bullmq";
 import { MinioStorageProvider } from "@infra/storage/MinioStorageProvider";
 import { TesseractOcrProvider } from "@infra/ocr/TesseractOcrProvider";
 import { GoogleVisionOcrProvider } from "@infra/ocr/GoogleVisionOcrProvider";
-import { InMemoryVerificationRepo } from "@infra/database/InMemoryVerificationRepo";
+// import { InMemoryVerificationRepo } from "@infra/database/InMemoryVerificationRepo";
 import { ProcessVerification } from "@core/usecases/ProcessVerification";
 import { logger } from "@infra/logger";
+import { IVerificationRepository } from "@core/ports/IVerificationRepository";
 
 export const createWorker = (
-  repo: InMemoryVerificationRepo,
+  repo: IVerificationRepository,
   storage: MinioStorageProvider
 ) => {
   const useGoogle = process.env.USE_GOOGLE_VISION === "true";

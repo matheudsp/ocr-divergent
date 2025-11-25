@@ -8,7 +8,7 @@ import {
 
 export interface VerificationRequestProps {
   id: string;
-  userId: string;
+  externalReference?: string;
   documentType: DocumentType;
   fileKey: string;
   expectedData: ExpectedData;
@@ -20,11 +20,10 @@ export interface VerificationRequestProps {
 
 export class VerificationRequest {
   public readonly id: string;
-  public readonly userId: string;
+  public readonly externalReference?: string;
   public readonly documentType: DocumentType;
   public readonly fileKey: string;
   public readonly expectedData: ExpectedData;
-
   public status: VerificationStatus;
   public result?: VerificationResult;
   public createdAt: Date;
@@ -32,7 +31,7 @@ export class VerificationRequest {
 
   private constructor(props: VerificationRequestProps) {
     this.id = props.id;
-    this.userId = props.userId;
+    this.externalReference = props.externalReference;
     this.documentType = props.documentType;
     this.fileKey = props.fileKey;
     this.expectedData = props.expectedData;
@@ -43,14 +42,14 @@ export class VerificationRequest {
   }
 
   static create(
-    userId: string,
+    externalReference: string,
     documentType: DocumentType,
     fileKey: string,
     expectedData: ExpectedData
   ): VerificationRequest {
     return new VerificationRequest({
       id: randomUUID(),
-      userId,
+      externalReference,
       documentType,
       fileKey,
       expectedData,

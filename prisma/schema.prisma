@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/infra/config/prisma/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum VerificationStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model VerificationRequest {
+  id                String             @id @default(uuid())
+  externalReference String?
+  documentType      String
+  fileKey           String
+  expectedData      Json
+  status            VerificationStatus
+  result            Json?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@map("verification_requests")
+}
