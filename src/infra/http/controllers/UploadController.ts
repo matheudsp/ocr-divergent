@@ -4,7 +4,7 @@ import { RequestVerificationUsecase } from "@core/usecases/RequestVerificationUs
 import { DocumentType } from "@core/dtos/verification.dto";
 
 const metadataSchema = z.object({
-  userId: z.uuidv4(),
+  externalReference: z.uuidv4(),
   documentType: z.enum(DocumentType),
   expectedData: z.object({
     name: z.string().min(3),

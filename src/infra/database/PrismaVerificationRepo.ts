@@ -37,7 +37,28 @@ export class PrismaVerificationRepo implements IVerificationRepository {
       updatedAt: raw.updatedAt,
     });
   }
+  async findByIdOrExternalId(
+    identifier: string
+  ): Promise<VerificationRequest | null> {
+    const raw = await prisma.verificationRequest.findFirst({
+      where: {
+        OR: [{ id: identifier }, { externalReference: identifier }],
+      },
+    });
 
+    if (!raw) return null;
+
+    return VerificationRequest.restore({
+      id: raw.id,
+      externalReference: raw.externalReference!,
+      documentType: raw.documentType as DocumentType,
+      fileKey: raw.fileKey,
+      status: raw.status as VerificationStatus,
+      confidenceScore: raw.confidenceScore,
+      createdAt: raw.createdAt,
+      updatedAt: raw.updatedAt,
+    });
+  }
   async update(request: VerificationRequest): Promise<void> {
     await prisma.verificationRequest.update({
       where: { id: request.id },

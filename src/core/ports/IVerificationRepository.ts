@@ -4,4 +4,5 @@ export interface IVerificationRepository {
   save(request: VerificationRequest): Promise<void>;
   findById(id: string): Promise<VerificationRequest | null>;
   update(request: VerificationRequest): Promise<void>;
+  findByIdOrExternalId(identifier: string): Promise<VerificationRequest | null>;
 }
