@@ -15,8 +15,7 @@ enum VerificationStatus {
 }
 
 enum DocumentType {
-  RG_FRENTE
-  RG_VERSO
+  RG
   CPF
   CNH
   COMPROVANTE_RENDA
@@ -33,6 +32,7 @@ model VerificationRequest {
   documentType      DocumentType
   fileKey           String
   status            VerificationStatus
+  failReason        String?
   confidenceScore   Int?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt

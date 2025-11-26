@@ -32,6 +32,7 @@ export class PrismaVerificationRepo implements IVerificationRepository {
       documentType: raw.documentType as DocumentType,
       fileKey: raw.fileKey,
       status: raw.status as VerificationStatus,
+      failReason: raw.failReason!,
       confidenceScore: raw.confidenceScore!,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
@@ -63,7 +64,8 @@ export class PrismaVerificationRepo implements IVerificationRepository {
     await prisma.verificationRequest.update({
       where: { id: request.id },
       data: {
-        status: request.status as any,
+        status: request.status as VerificationStatus,
+        failReason: request.failReason,
         confidenceScore: request.confidenceScore ?? 0,
         updatedAt: new Date(),
       },

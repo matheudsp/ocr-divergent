@@ -1,15 +1,14 @@
-import levenshtein from "fast-levenshtein";
 import { IVerificationRepository } from "../../ports/IVerificationRepository";
 import { IStorageProvider } from "../../ports/IStorageProvider";
 import { IOcrProvider } from "../../ports/IOcrProvider";
+import { IWebhookProvider } from "../../ports/IWebhookProvider";
 import {
-  VerificationResult,
   VerificationConfig,
-  ExpectedData,
   VerificationStatus,
 } from "../../dtos/verification.dto";
+import { VerificationStrategyFactory } from "../../factories/VerificationStrategyFactory";
 import { logger } from "@infra/logger";
-import type { IWebhookProvider } from "@core/ports/IWebhookProvider";
+import { ExpectedData } from "../../dtos/verification.dto";
 
 interface ProcessVerificationInput {
   verificationId: string;
@@ -17,8 +16,10 @@ interface ProcessVerificationInput {
   expectedData: ExpectedData;
   webhookUrl?: string;
 }
+
 export class ProcessVerificationUsecase {
   private readonly serviceName: string = ProcessVerificationUsecase.name;
+
   constructor(
     private verificationRepo: IVerificationRepository,
     private storageProvider: IStorageProvider,
@@ -46,97 +47,60 @@ export class ProcessVerificationUsecase {
 
       const extractedText = await this.ocrProvider.extractText(fileBuffer);
 
-      const { confidenceScore } = this.calculateConfidence(
+      const strategy = VerificationStrategyFactory.create(
+        request.documentType,
+        this.config.similarityThreshold
+      );
+
+      const { score, reason } = strategy.calculateConfidence(
         extractedText,
         expectedData
       );
 
-      request.complete(confidenceScore);
+      request.complete(score, reason);
       await this.verificationRepo.update(request);
 
       logger.info(
-        `Verificação ${verificationId} concluída. Score: ${confidenceScore}`
+        `Verificação ${verificationId} concluída. Score: ${score}. Motivo: ${
+          reason ?? "N/A"
+        }`
       );
+
       if (webhookUrl) {
         await this.webhookProvider.send(webhookUrl, {
           verificationId: request.id,
           externalReference: request.externalReference,
           status: request.status,
+          failReason: request.failReason,
           confidenceScore: request.confidenceScore,
           processedAt: request.updatedAt,
         });
       }
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Erro desconhecido ao processar documento";
+
       logger.error(
         { usecase: this.serviceName, err: error },
-        `Falha na verificacao ${verificationId}`
+        `Falha na verificação ${verificationId}`
       );
-      request.fail();
+
+      request.fail(errorMessage);
+
       await this.verificationRepo.update(request);
+
       if (webhookUrl) {
         await this.webhookProvider.send(webhookUrl, {
           verificationId: request.id,
           externalReference: request.externalReference,
           status: VerificationStatus.FAILED,
+          failReason: errorMessage,
           confidenceScore: 0,
           processedAt: new Date(),
         });
       }
     }
-  }
-  private normalizeText(text: string): string {
-    return text
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toUpperCase()
-      .trim();
-  }
-  private calculateConfidence(
-    rawText: string,
-    expected: ExpectedData
-  ): VerificationResult {
-    const cleanRawText = this.normalizeText(rawText);
-    const cleanExpectedName = this.normalizeText(expected.name);
-
-    const nameSimilarity = this.calculateSimilarity(
-      cleanExpectedName,
-      cleanRawText
-    );
-    const digitsOnly = rawText.replace(/\D/g, "");
-    const cleanExpectedCpf = expected.cpf.replace(/\D/g, "");
-    const cpfFound = digitsOnly.includes(cleanExpectedCpf);
-
-    const isNameValid = nameSimilarity >= this.config.similarityThreshold;
-
-    let finalScore = 0;
-
-    if (isNameValid && cpfFound) {
-      finalScore = Math.round(nameSimilarity * 100);
-    } else {
-      finalScore = 0;
-    }
-
-    return {
-      confidenceScore: finalScore,
-    };
-  }
-
-  private calculateSimilarity(needle: string, haystack: string): number {
-    if (haystack.includes(needle)) return 1.0;
-
-    const words = haystack.split(/\s+/);
-    let bestDist = Infinity;
-    const needleParts = needle.split(" ").length;
-
-    for (let i = 0; i <= words.length - needleParts; i++) {
-      const chunk = words.slice(i, i + needleParts).join(" ");
-      const dist = levenshtein.get(needle, chunk);
-      if (dist < bestDist) bestDist = dist;
-    }
-
-    const maxLength = Math.max(needle.length, 1);
-    const similarity = 1 - bestDist / maxLength;
-
-    return Math.max(0, similarity);
   }
 }

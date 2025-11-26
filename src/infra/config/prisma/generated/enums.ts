@@ -20,8 +20,7 @@ export type VerificationStatus = (typeof VerificationStatus)[keyof typeof Verifi
 
 
 export const DocumentType = {
-  RG_FRENTE: 'RG_FRENTE',
-  RG_VERSO: 'RG_VERSO',
+  RG: 'RG',
   CPF: 'CPF',
   CNH: 'CNH',
   COMPROVANTE_RENDA: 'COMPROVANTE_RENDA'

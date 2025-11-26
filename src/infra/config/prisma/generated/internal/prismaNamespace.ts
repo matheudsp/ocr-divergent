@@ -598,6 +598,7 @@ export const VerificationRequestScalarFieldEnum = {
   documentType: 'documentType',
   fileKey: 'fileKey',
   status: 'status',
+  failReason: 'failReason',
   confidenceScore: 'confidenceScore',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

@@ -4,6 +4,7 @@ export interface WebhookPayload {
   verificationId: string;
   externalReference?: string;
   status: VerificationStatus;
+  failReason?: string;
   confidenceScore?: number;
   processedAt: Date;
 }

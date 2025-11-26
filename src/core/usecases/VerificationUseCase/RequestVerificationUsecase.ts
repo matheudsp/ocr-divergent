@@ -49,7 +49,6 @@ export class RequestVerificationUsecase {
     const verificationRequest = VerificationRequest.create(
       metadata.documentType,
       fileKey,
-
       metadata.externalReference
     );
 
