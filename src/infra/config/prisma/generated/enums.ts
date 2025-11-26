@@ -28,3 +28,11 @@ export const DocumentType = {
 } as const
 
 export type DocumentType = (typeof DocumentType)[keyof typeof DocumentType]
+
+
+export const Role = {
+  ADMIN: 'ADMIN',
+  CLIENT: 'CLIENT'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]

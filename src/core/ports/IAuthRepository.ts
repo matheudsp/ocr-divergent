@@ -1,6 +1,14 @@
 import { ApiKey } from "@infra/config/prisma/generated/client";
 
+export interface CreateApiKeyInput {
+  clientName: string;
+  key: string;
+  role?: "ADMIN" | "CLIENT";
+  webhookUrl?: string;
+  allowedIp?: string;
+}
+
 export interface IAuthRepository {
-  existsAndIsActive(key: string): Promise<boolean>;
-  create(clientName: string, key: string): Promise<ApiKey>;
+  findByKey(key: string): Promise<ApiKey | null>;
+  create(data: CreateApiKeyInput): Promise<ApiKey>;
 }

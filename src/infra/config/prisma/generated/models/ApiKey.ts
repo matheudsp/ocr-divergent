@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums"
-import type * as Prisma from "../internal/prismaNamespace"
+import type * as $Enums from "../enums.js"
+import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model ApiKey
@@ -28,6 +28,9 @@ export type ApiKeyMinAggregateOutputType = {
   id: string | null
   key: string | null
   client: string | null
+  role: $Enums.Role | null
+  webhookUrl: string | null
+  allowedIp: string | null
   isActive: boolean | null
   createdAt: Date | null
 }
@@ -36,6 +39,9 @@ export type ApiKeyMaxAggregateOutputType = {
   id: string | null
   key: string | null
   client: string | null
+  role: $Enums.Role | null
+  webhookUrl: string | null
+  allowedIp: string | null
   isActive: boolean | null
   createdAt: Date | null
 }
@@ -44,6 +50,9 @@ export type ApiKeyCountAggregateOutputType = {
   id: number
   key: number
   client: number
+  role: number
+  webhookUrl: number
+  allowedIp: number
   isActive: number
   createdAt: number
   _all: number
@@ -54,6 +63,9 @@ export type ApiKeyMinAggregateInputType = {
   id?: true
   key?: true
   client?: true
+  role?: true
+  webhookUrl?: true
+  allowedIp?: true
   isActive?: true
   createdAt?: true
 }
@@ -62,6 +74,9 @@ export type ApiKeyMaxAggregateInputType = {
   id?: true
   key?: true
   client?: true
+  role?: true
+  webhookUrl?: true
+  allowedIp?: true
   isActive?: true
   createdAt?: true
 }
@@ -70,6 +85,9 @@ export type ApiKeyCountAggregateInputType = {
   id?: true
   key?: true
   client?: true
+  role?: true
+  webhookUrl?: true
+  allowedIp?: true
   isActive?: true
   createdAt?: true
   _all?: true
@@ -151,6 +169,9 @@ export type ApiKeyGroupByOutputType = {
   id: string
   key: string
   client: string
+  role: $Enums.Role
+  webhookUrl: string | null
+  allowedIp: string | null
   isActive: boolean
   createdAt: Date
   _count: ApiKeyCountAggregateOutputType | null
@@ -180,6 +201,9 @@ export type ApiKeyWhereInput = {
   id?: Prisma.StringFilter<"ApiKey"> | string
   key?: Prisma.StringFilter<"ApiKey"> | string
   client?: Prisma.StringFilter<"ApiKey"> | string
+  role?: Prisma.EnumRoleFilter<"ApiKey"> | $Enums.Role
+  webhookUrl?: Prisma.StringNullableFilter<"ApiKey"> | string | null
+  allowedIp?: Prisma.StringNullableFilter<"ApiKey"> | string | null
   isActive?: Prisma.BoolFilter<"ApiKey"> | boolean
   createdAt?: Prisma.DateTimeFilter<"ApiKey"> | Date | string
 }
@@ -188,6 +212,9 @@ export type ApiKeyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   key?: Prisma.SortOrder
   client?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  webhookUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  allowedIp?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -199,6 +226,9 @@ export type ApiKeyWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ApiKeyWhereInput[]
   NOT?: Prisma.ApiKeyWhereInput | Prisma.ApiKeyWhereInput[]
   client?: Prisma.StringFilter<"ApiKey"> | string
+  role?: Prisma.EnumRoleFilter<"ApiKey"> | $Enums.Role
+  webhookUrl?: Prisma.StringNullableFilter<"ApiKey"> | string | null
+  allowedIp?: Prisma.StringNullableFilter<"ApiKey"> | string | null
   isActive?: Prisma.BoolFilter<"ApiKey"> | boolean
   createdAt?: Prisma.DateTimeFilter<"ApiKey"> | Date | string
 }, "id" | "key">
@@ -207,6 +237,9 @@ export type ApiKeyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   key?: Prisma.SortOrder
   client?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  webhookUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  allowedIp?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ApiKeyCountOrderByAggregateInput
@@ -221,6 +254,9 @@ export type ApiKeyScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ApiKey"> | string
   key?: Prisma.StringWithAggregatesFilter<"ApiKey"> | string
   client?: Prisma.StringWithAggregatesFilter<"ApiKey"> | string
+  role?: Prisma.EnumRoleWithAggregatesFilter<"ApiKey"> | $Enums.Role
+  webhookUrl?: Prisma.StringNullableWithAggregatesFilter<"ApiKey"> | string | null
+  allowedIp?: Prisma.StringNullableWithAggregatesFilter<"ApiKey"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"ApiKey"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ApiKey"> | Date | string
 }
@@ -229,6 +265,9 @@ export type ApiKeyCreateInput = {
   id?: string
   key: string
   client: string
+  role?: $Enums.Role
+  webhookUrl?: string | null
+  allowedIp?: string | null
   isActive?: boolean
   createdAt?: Date | string
 }
@@ -237,6 +276,9 @@ export type ApiKeyUncheckedCreateInput = {
   id?: string
   key: string
   client: string
+  role?: $Enums.Role
+  webhookUrl?: string | null
+  allowedIp?: string | null
   isActive?: boolean
   createdAt?: Date | string
 }
@@ -245,6 +287,9 @@ export type ApiKeyUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   key?: Prisma.StringFieldUpdateOperationsInput | string
   client?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  webhookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  allowedIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -253,6 +298,9 @@ export type ApiKeyUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   key?: Prisma.StringFieldUpdateOperationsInput | string
   client?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  webhookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  allowedIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -261,6 +309,9 @@ export type ApiKeyCreateManyInput = {
   id?: string
   key: string
   client: string
+  role?: $Enums.Role
+  webhookUrl?: string | null
+  allowedIp?: string | null
   isActive?: boolean
   createdAt?: Date | string
 }
@@ -269,6 +320,9 @@ export type ApiKeyUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   key?: Prisma.StringFieldUpdateOperationsInput | string
   client?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  webhookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  allowedIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -277,6 +331,9 @@ export type ApiKeyUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   key?: Prisma.StringFieldUpdateOperationsInput | string
   client?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  webhookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  allowedIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -285,6 +342,9 @@ export type ApiKeyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   key?: Prisma.SortOrder
   client?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  webhookUrl?: Prisma.SortOrder
+  allowedIp?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -293,6 +353,9 @@ export type ApiKeyMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   key?: Prisma.SortOrder
   client?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  webhookUrl?: Prisma.SortOrder
+  allowedIp?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -301,8 +364,15 @@ export type ApiKeyMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   key?: Prisma.SortOrder
   client?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  webhookUrl?: Prisma.SortOrder
+  allowedIp?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type EnumRoleFieldUpdateOperationsInput = {
+  set?: $Enums.Role
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -315,6 +385,9 @@ export type ApiKeySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   key?: boolean
   client?: boolean
+  role?: boolean
+  webhookUrl?: boolean
+  allowedIp?: boolean
   isActive?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["apiKey"]>
@@ -323,6 +396,9 @@ export type ApiKeySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   key?: boolean
   client?: boolean
+  role?: boolean
+  webhookUrl?: boolean
+  allowedIp?: boolean
   isActive?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["apiKey"]>
@@ -331,6 +407,9 @@ export type ApiKeySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   key?: boolean
   client?: boolean
+  role?: boolean
+  webhookUrl?: boolean
+  allowedIp?: boolean
   isActive?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["apiKey"]>
@@ -339,11 +418,14 @@ export type ApiKeySelectScalar = {
   id?: boolean
   key?: boolean
   client?: boolean
+  role?: boolean
+  webhookUrl?: boolean
+  allowedIp?: boolean
   isActive?: boolean
   createdAt?: boolean
 }
 
-export type ApiKeyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "key" | "client" | "isActive" | "createdAt", ExtArgs["result"]["apiKey"]>
+export type ApiKeyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "key" | "client" | "role" | "webhookUrl" | "allowedIp" | "isActive" | "createdAt", ExtArgs["result"]["apiKey"]>
 
 export type $ApiKeyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ApiKey"
@@ -352,6 +434,9 @@ export type $ApiKeyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     key: string
     client: string
+    role: $Enums.Role
+    webhookUrl: string | null
+    allowedIp: string | null
     isActive: boolean
     createdAt: Date
   }, ExtArgs["result"]["apiKey"]>
@@ -780,6 +865,9 @@ export interface ApiKeyFieldRefs {
   readonly id: Prisma.FieldRef<"ApiKey", 'String'>
   readonly key: Prisma.FieldRef<"ApiKey", 'String'>
   readonly client: Prisma.FieldRef<"ApiKey", 'String'>
+  readonly role: Prisma.FieldRef<"ApiKey", 'Role'>
+  readonly webhookUrl: Prisma.FieldRef<"ApiKey", 'String'>
+  readonly allowedIp: Prisma.FieldRef<"ApiKey", 'String'>
   readonly isActive: Prisma.FieldRef<"ApiKey", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"ApiKey", 'DateTime'>
 }

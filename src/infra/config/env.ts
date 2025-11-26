@@ -11,7 +11,6 @@ const envSchema = z.object({
 
   // App
   OCR_THRESHOLD: z.coerce.number().default(0.7),
-  ADMIN_API_TOKEN: z.string().min(12, "Token de admin deve ser forte"),
 
   // Redis
   REDIS_HOST: z.string().default("localhost"),

@@ -4,6 +4,8 @@ import { CreateApiKeyUsecase } from "@core/usecases/CreateApiKeyUsecase";
 
 const bodySchema = z.object({
   client: z.string().min(3),
+  webhookUrl: z.url().optional(),
+  allowedIp: z.ipv4().optional(),
 });
 
 export class CreateApiKeyController {
@@ -11,9 +13,13 @@ export class CreateApiKeyController {
 
   async handle(req: FastifyRequest, reply: FastifyReply) {
     try {
-      const { client } = bodySchema.parse(req.body);
+      const { client, webhookUrl, allowedIp } = bodySchema.parse(req.body);
 
-      const result = await this.createApiKeyUseCase.execute(client);
+      const result = await this.createApiKeyUseCase.execute({
+        client,
+        webhookUrl,
+        allowedIp,
+      });
 
       return reply.status(201).send(result);
     } catch (error: any) {

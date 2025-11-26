@@ -1,6 +1,6 @@
 import { IAuthRepository } from "../ports/IAuthRepository";
 
-export class ValidateApiKeyUsecase {
+export class ValidateAdminKeyUsecase {
   constructor(private authRepo: IAuthRepository) {}
 
   async execute(key: string): Promise<boolean> {
@@ -11,6 +11,6 @@ export class ValidateApiKeyUsecase {
     if (!apiKey) return false;
     if (!apiKey.isActive) return false;
 
-    return true;
+    return apiKey.role === "ADMIN";
   }
 }

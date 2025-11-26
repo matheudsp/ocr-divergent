@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models"
-import { type PrismaClient } from "./class"
+import type * as Prisma from "../models.js"
+import { type PrismaClient } from "./class.js"
 
-export type * from '../models'
+export type * from '../models.js'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -610,6 +610,9 @@ export const ApiKeyScalarFieldEnum = {
   id: 'id',
   key: 'key',
   client: 'client',
+  role: 'role',
+  webhookUrl: 'webhookUrl',
+  allowedIp: 'allowedIp',
   isActive: 'isActive',
   createdAt: 'createdAt'
 } as const
@@ -714,6 +717,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Role'
+ */
+export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+/**
+ * Reference to a field of type 'Role[]'
+ */
+export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
     
 
 

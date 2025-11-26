@@ -22,6 +22,11 @@ enum DocumentType {
   COMPROVANTE_RENDA
 }
 
+enum Role {
+  ADMIN
+  CLIENT
+}
+
 model VerificationRequest {
   id                String             @id @default(uuid())
   externalReference String?
@@ -36,9 +41,13 @@ model VerificationRequest {
 }
 
 model ApiKey {
-  id        String   @id @default(uuid())
-  key       String   @unique
-  client    String
+  id         String  @id @default(uuid())
+  key        String  @unique
+  client     String
+  role       Role    @default(CLIENT)
+  webhookUrl String? @map("webhook_url")
+  allowedIp  String? @map("allowed_ip")
+
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
