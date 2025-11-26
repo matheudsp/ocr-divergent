@@ -7,6 +7,7 @@ import { adminRoutes } from "./routes/admin.routes";
 export const buildApp = () => {
   const app = Fastify({
     logger: loggerOptions,
+    trustProxy: true,
   });
 
   app.register(multipart, {

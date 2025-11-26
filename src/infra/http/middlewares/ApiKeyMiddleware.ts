@@ -7,6 +7,8 @@ export const apiKeyMiddleware = (
   return async (req: FastifyRequest, reply: FastifyReply) => {
     const apiKey = req.headers["x-api-key"] as string;
 
+    const requestIp = req.ip;
+
     if (!apiKey) {
       return reply.status(401).send({
         error: "Unauthorized",
@@ -14,12 +16,12 @@ export const apiKeyMiddleware = (
       });
     }
 
-    const isValid = await validateApiKeyUseCase.execute(apiKey);
+    const isValid = await validateApiKeyUseCase.execute(apiKey, requestIp);
 
     if (!isValid) {
       return reply.status(403).send({
         error: "Forbidden",
-        message: "API Key inválida ou inativa",
+        message: "API Key inválida, inativa ou IP não autorizado",
       });
     }
   };
