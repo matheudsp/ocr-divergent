@@ -1,8 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from "vitest";
 import { PrismaVerificationRepo } from "./PrismaVerificationRepo";
-import { VerificationRequest } from "@core/domain/VerificationRequest";
-import { DocumentType, VerificationStatus } from "@core/dtos/verification.dto";
-import { prisma } from "@infra/config/prisma/prisma";
+import { VerificationRequest } from "../../core/domain/VerificationRequest";
+import {
+  DocumentType,
+  VerificationStatus,
+} from "../../core/dtos/verification.dto";
+import { prisma } from "../config/prisma/prisma";
 
 describe("PrismaVerificationRepo (Integration)", () => {
   let repo: PrismaVerificationRepo;
@@ -48,7 +51,7 @@ describe("PrismaVerificationRepo (Integration)", () => {
   it("deve atualizar o status e o score da solicitação", async () => {
     // ARRANGE
     const request = VerificationRequest.create(
-      DocumentType.RG_FRENTE,
+      DocumentType.RG,
       "uploads/rg.jpg"
     );
     await repo.save(request);

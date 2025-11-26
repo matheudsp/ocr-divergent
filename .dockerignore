@@ -1,0 +1,14 @@
+node_modules
+dist
+build
+coverage
+.git
+.github
+.env
+.vscode
+.idea
+README.md
+docker-compose.yml
+Dockerfile
+secrets
+*.log
