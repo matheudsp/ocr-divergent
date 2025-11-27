@@ -1,5 +1,5 @@
 {
-  "name": "ocr-microservice",
+  "name": "ocr-divergent",
   "type": "module",
   "version": "1.0.0",
   "main": "index.js",
