@@ -49,6 +49,9 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/src/infra/config/prisma/generated ./src/infra/config/prisma/generated
 COPY --from=builder /app/prisma ./prisma
 
-EXPOSE 3000
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
+EXPOSE 3000
+ENTRYPOINT ["./entrypoint.sh"]
 CMD ["node", "dist/main.js"]
