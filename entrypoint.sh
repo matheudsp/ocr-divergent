@@ -3,12 +3,6 @@ set -e
 
 echo "[OCR] Iniciando Entrypoint..."
 
-echo "[OCR] Aguardando Postgres..."
-until nc -z -v -w30 $DB_HOST $DB_PORT; do
-  echo "[OCR] Aguardando conexão com banco de dados..."
-  sleep 5
-done
-
 echo "[OCR] Inicializando Banco de Dados (Check/Create)..."
 node dist/scripts/init-db.js
 
