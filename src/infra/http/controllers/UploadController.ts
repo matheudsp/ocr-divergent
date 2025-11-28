@@ -2,6 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 import { RequestVerificationUsecase } from "@core/usecases/VerificationUseCase/RequestVerificationUsecase";
 import { DocumentType } from "@core/dtos/verification.dto";
+import { FileValidator } from "../validators/FileValidator";
 
 const metadataSchema = z.object({
   externalReference: z.uuidv4(),
@@ -45,6 +46,14 @@ export class UploadController {
         return reply
           .status(400)
           .send({ error: 'Arquivo (campo "file") é obrigatório.' });
+      }
+      try {
+        await FileValidator.validate(fileBuffer, mimetype);
+      } catch (validationError: any) {
+        return reply.status(400).send({
+          error: "Security Check Failed",
+          message: validationError.message,
+        });
       }
 
       if (!rawMetadata) {

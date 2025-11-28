@@ -10,6 +10,11 @@ async function main() {
 
   if (adminExists) {
     // console.log("[Script] Admin já existente.");
+    console.log(`
+    -------------------------------------------------------
+    APIKEY already exists, store safely : ${adminExists.key}
+    -------------------------------------------------------
+    `);
     process.exit(0);
   }
 
@@ -23,9 +28,9 @@ async function main() {
   });
 
   console.log(`
-    ---------------------------------------
-    Here your APIKEY: ${adminKey}
-    ---------------------------------------
+    ----------------------------------------------------
+    APIKEY created, store safely: ${adminKey}
+    ----------------------------------------------------
     `);
   process.exit(0);
 }
