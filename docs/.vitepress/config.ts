@@ -3,6 +3,7 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "OCR Divergent",
+  base: "/ocr-divergent/",
   description: "Documentação ",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

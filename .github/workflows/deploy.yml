@@ -4,7 +4,12 @@ on:
   push:
     branches: ["main"]
     tags: ["v*.*.*"]
-
+    paths-ignore:
+      - 'docs/**'        # Ignora qualquer mudança dentro da pasta docs
+      - '**.md'          # Ignora arquivos Markdown 
+      - '.github/workflows/deploy-docs.yml' # Ignora mudanças no workflow de docs
+      - 'LICENSE'
+      - '.gitignore'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
