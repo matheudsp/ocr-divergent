@@ -55,6 +55,7 @@ export const createWorker = (
         fileKey: job.data.fileKey,
         expectedData: job.data.expectedData,
         webhookUrl: job.data.webhookUrl,
+        webhookSecret: job.data.webhookSecret,
       });
     },
     {
